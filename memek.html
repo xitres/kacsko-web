@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <title>Memek – Kacsko</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    header {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .meme-gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .meme {
+      width: 300px;
+      background: #222;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .meme img {
+      width: 100%;
+      display: block;
+    }
+
+    .meme p {
+      color: #fff;
+      padding: 1rem;
+      font-weight: bold;
+    }
+
+    nav {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    nav a {
+      color: #fff;
+      background: #444;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background: #666;
+    }
+
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: -1;
+    }
+
+    .color-layer.blue {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #4a00e0, #8e2de2);
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    .color-layer.purple {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: purple;
+      opacity: 0.2;
+      z-index: 1;
+    }
+
+    .gengar {
+      position: absolute;
+      height: 120px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.05); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Kacsko Memek</h1>
+    <p>Az oldalon a legikonikusabb pillanatokat találod újraértelmezve.</p>
+  </header>
+
+ 
+  
+  
+<main class="meme-gallery">
+  <div class="meme">
+    <img src="mem1.jpg" alt="Mém 1">
+    <p>„Amikor a chatet nézed”</p>
+    <video src="2025-06-27 19-43-13.mp4" controls></video>
+  </div>
+  <div class="meme">
+    <img src="mem2.jpg" alt="Mém 2">
+    <p>„emerald sett”</p>
+    <video src="2025-06-27 20-01-59.mp4" controls></video>
+  </div>
+  <div class="meme">
+    <img src="mem3.jpg" alt="Mém 3">
+    <p>„Hamarosan :D”</p>
+    <video src="video1.mp4" controls></video>
+  </div>
+</main>
+
+
+
+    </div>
+  </main>
+
+  <nav>
+    <a href="index.html">Vissza a főoldalra</a>
+  </nav>
+
+  <div class="bottom-bar">
+    <div class="color-layer blue"></div>
+    <div class="color-layer purple"></div>
+    <img src="gengar-removebg-preview.png" alt="Gengar" class="gengar" />
+  </div>
+</body>
+</html>

@@ -1,16 +1,8 @@
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
+  margin: 0;
   font-family: 'Rubik', sans-serif;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   color: #fff;
-  overflow-x: hidden;
-  font-size: 30px;
 }
 
 header {
@@ -18,16 +10,6 @@ header {
   text-align: center;
   background: linear-gradient(to right, #ff416c, #ff4b2b);
   animation: fadeIn 1s ease-in;
-}
-
-header h1 {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-}
-
-header p {
-  font-size: 1.2rem;
-  color: #fdd;
 }
 
 nav {
@@ -50,69 +32,81 @@ nav a:hover {
   color: #ff416c;
 }
 
-.section {
-  padding: 3rem 2rem;
-  max-width: 1000px;
-  margin: auto;
-  animation: fadeUp 1s ease;
-}
-
-.section h2 {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-  color: #ffdc73;
-}
-
-.section p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-}
-
-.highlight {
-  color: #ff416c;
-  font-weight: bold;
-}
-
-.video-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-}
-
-.video {
-  background-color: #292943;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(255, 65, 108, 0.2);
-  width: 300px;
-  transition: transform 0.3s ease;
-}
-
-.video:hover {
-  transform: scale(1.05);
-}
-
-.video img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-footer {
+.gif-container {
   text-align: center;
+  margin: 20px 0;
+}
+
+.gif-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* ----------- A lila alsó sáv -------------- */
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #6a0dad; /* lila */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 -3px 10px rgba(106, 13, 173, 0.7);
+  z-index: 9999;
+}
+
+.gengar {
+  width: 60px;
+  height: auto;
+  animation: pulse 2s infinite;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Pulzáló animáció */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px rgba(106,13,173,0.7));
+  }
+  50% {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 12px rgba(106,13,173,1));
+  }
+}
+
+
+.video-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
   padding: 2rem;
-  background-color: #141421;
-  color: #aaa;
-  font-size: 0.9rem;
+  flex-wrap: nowrap; /* ha mindenféleképp vízszintesen akarod */
+  overflow-x: auto; /* ha kisebb képernyőn is működjön */
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+.video-row video {
+  width: 300px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 65, 108, 0.3);
+  flex-shrink: 0;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+nav {
+  text-align: center;
+  margin: 2rem auto 6rem auto; /* felül 2rem, alul 6rem hely a fixed bottom bar miatt */
+}
+
+.meme video {
+  width: 100%;      /* kitölti a szülő doboz szélességét */
+  height: auto;     /* magasság arányosan igazodik, nem nyújtja el */
+  display: block;   /* eltünteti az alján a kis alsó helyet */
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 65, 108, 0.3);
 }
