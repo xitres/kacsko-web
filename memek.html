@@ -2,11 +2,22 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8" />
-  <title>Memek – Kacsko</title>
+  <title data-i18n="title">Kacsko YouTube Csatorna</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
       animation: fadeIn 1s ease forwards;
+      background-color: #f0f0f0;
+      color: #222;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding-bottom: 120px; /* az alsó sáv miatt */
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #eee;
     }
 
     @keyframes fadeIn {
@@ -29,22 +40,30 @@
 
     .meme {
       width: 300px;
-      background: #222;
+      background: #fff;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
       text-align: center;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .meme img {
+    body.dark-mode .meme {
+      background: #222;
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
+    }
+
+    .meme img, .meme video {
       width: 100%;
       display: block;
+      border-bottom: 1px solid #ccc;
     }
 
     .meme p {
-      color: #fff;
       padding: 1rem;
       font-weight: bold;
+      margin: 0;
+      color: inherit;
     }
 
     nav {
@@ -53,15 +72,24 @@
     }
 
     nav a {
-      color: #fff;
-      background: #444;
+      color: #222;
+      background: #ddd;
       padding: 0.5rem 1rem;
       border-radius: 6px;
       text-decoration: none;
-      transition: background 0.3s;
+      transition: background 0.3s, color 0.3s;
+      display: inline-block;
     }
 
     nav a:hover {
+      background: #bbb;
+    }
+
+    body.dark-mode nav a {
+      color: #eee;
+      background: #444;
+    }
+    body.dark-mode nav a:hover {
       background: #666;
     }
 
@@ -74,15 +102,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: -1;
+      z-index: 1000;
+      pointer-events: none;
     }
 
     .color-layer.blue {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: linear-gradient(90deg, #4a00e0, #8e2de2);
       opacity: 0.4;
       z-index: 0;
@@ -90,10 +117,8 @@
 
     .color-layer.purple {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: purple;
       opacity: 0.2;
       z-index: 1;
@@ -107,48 +132,76 @@
       transform: translateX(-50%);
       z-index: 2;
       animation: pulse 2s infinite;
+      pointer-events: auto;
     }
 
     @keyframes pulse {
       0%, 100% { transform: translateX(-50%) scale(1); }
       50% { transform: translateX(-50%) scale(1.05); }
     }
+
+    /* Gombok */
+    #darkModeToggle, #langToggle {
+      position: fixed;
+      bottom: 110px;
+      right: 1rem;
+      background: #444;
+      border: none;
+      border-radius: 50%;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      color: white;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+      z-index: 2000;
+    }
+    #langToggle {
+      right: 50px;
+      background: transparent;
+      padding: 0;
+      width: 48px;
+      height: 32px;
+    }
+    #darkModeToggle:hover, #langToggle:hover {
+      background: #666;
+    }
+    #langToggle img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Kacsko Memek</h1>
-    <p>Az oldalon a legikonikusabb pillanatokat találod újraértelmezve.</p>
+    <h1 data-i18n="title">Kacsko YouTube Csatorna</h1>
+    <p data-i18n="subtitle">Válassz egy témát a menüből!</p>
   </header>
 
- 
-  
-  
-<main class="meme-gallery">
-  <div class="meme">
-    <img src="mem1.jpg" alt="Mém 1">
-    <p>„Amikor a chatet nézed”</p>
-    <video src="2025-06-27 19-43-13.mp4" controls></video>
-  </div>
-  <div class="meme">
-    <img src="mem2.jpg" alt="Mém 2">
-    <p>„emerald sett”</p>
-    <video src="2025-06-27 20-01-59.mp4" controls></video>
-  </div>
-  <div class="meme">
-    <img src="mem3.jpg" alt="Mém 3">
-    <p>„Hamarosan :D”</p>
-    <video src="video1.mp4" controls></video>
-  </div>
-</main>
-
-
-
+  <main class="meme-gallery">
+    <div class="meme">
+      <img src="mem1.jpg" alt="Mém 1" />
+      <p>„Amikor a chatet nézed”</p>
+      <video src="2025-06-27 19-43-13.mp4" controls></video>
+    </div>
+    <div class="meme">
+      <img src="mem2.jpg" alt="Mém 2" />
+      <p>„emerald sett”</p>
+      <video src="2025-06-27 20-01-59.mp4" controls></video>
+    </div>
+    <div class="meme">
+      <img src="mem3.jpg" alt="Mém 3" />
+      <p>„Hamarosan :D”</p>
+      <video src="video1.mp4" controls></video>
     </div>
   </main>
 
   <nav>
-    <a href="index.html">Vissza a főoldalra</a>
+    <a href="index.html" data-i18n="nav.home">Vissza a főoldalra</a>
   </nav>
 
   <div class="bottom-bar">
@@ -156,5 +209,86 @@
     <div class="color-layer purple"></div>
     <img src="gengar-removebg-preview.png" alt="Gengar" class="gengar" />
   </div>
+
+  <button id="darkModeToggle" aria-label="Sötét mód váltó" title="Sötét mód váltó">💡</button>
+  <button id="langToggle" aria-label="Nyelv váltó" title="Nyelv váltó">
+    <img id="flagImg" src="flags/hu.png" alt="HU" />
+  </button>
+
+  <script>
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+    const gengarImg = document.querySelector('.gengar');
+
+    const langToggleBtn = document.getElementById('langToggle');
+    const flagImg = document.getElementById('flagImg');
+
+    const translations = {
+      hu: {
+        title: "Kacsko YouTube Csatorna",
+        subtitle: "Válassz egy témát a menüből!",
+        "nav.home": "Vissza a főoldalra"
+      },
+      en: {
+        title: "Kacsko YouTube Channel",
+        subtitle: "Choose a topic from the menu!",
+        "nav.home": "Back to homepage"
+      },
+      de: {
+        title: "Kacsko YouTube Kanal",
+        subtitle: "Wähle ein Thema aus dem Menü!",
+        "nav.home": "Zurück zur Startseite"
+      }
+    };
+
+    const flags = {
+      hu: "flags/hu.png",
+      en: "flags/gb.png",
+      de: "flags/de.png"
+    };
+
+    let currentLang = 'hu';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+      flagImg.src = flags[lang];
+      flagImg.alt = lang.toUpperCase();
+      document.title = translations[lang].title;
+    }
+
+    function applyDarkModeFromStorage() {
+      const savedTheme = localStorage.getItem('darkMode');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (savedTheme === 'enabled' || (!savedTheme && prefersDark)) {
+        body.classList.add('dark-mode');
+        gengarImg.src = 'gengar-removebg-preview.png';
+      } else {
+        body.classList.remove('dark-mode');
+        gengarImg.src = 'espeon.png';
+      }
+    }
+
+    applyDarkModeFromStorage();
+    setLanguage(currentLang);
+
+    toggleBtn.addEventListener('click', () => {
+      const isDark = body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      gengarImg.src = isDark ? 'gengar-removebg-preview.png' : 'espeon.png';
+    });
+
+    langToggleBtn.addEventListener('click', () => {
+      if (currentLang === 'hu') setLanguage('en');
+      else if (currentLang === 'en') setLanguage('de');
+      else setLanguage('hu');
+    });
+  </script>
 </body>
 </html>

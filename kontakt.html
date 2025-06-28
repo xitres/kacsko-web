@@ -7,6 +7,12 @@
   <style>
     body {
       animation: fadeIn 1s ease forwards;
+      padding-bottom: 120px; /* hely az alsó sávnak */
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background-color: #121212;
+      color: #eee;
     }
     @keyframes fadeIn {
       from {opacity: 0;}
@@ -26,35 +32,220 @@
     .discord-link:hover {
       background: #5b6eae;
     }
+
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .color-layer.blue {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, #4a00e0, #8e2de2);
+      opacity: 0.4;
+      z-index: 0;
+    }
+    .color-layer.purple {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: purple;
+      opacity: 0.2;
+      z-index: 1;
+    }
+    .gengar {
+      position: absolute;
+      height: 120px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: pulse 2s infinite;
+      pointer-events: auto;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.05); }
+    }
+
+    /* Gombok a jobb alsó sarokban, gengar fölött, egymás alatt */
+    #darkModeToggle, #langToggle {
+      position: fixed;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #444;
+      transition: background 0.3s;
+      z-index: 2000;
+    }
+    #darkModeToggle {
+      bottom: 160px;
+    }
+    #langToggle {
+      bottom: 110px;
+      width: 48px;
+      height: 32px;
+      background: transparent;
+      padding: 0;
+    }
+    #darkModeToggle:hover, #langToggle:hover {
+      background: #666;
+    }
+    #langToggle img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      pointer-events: none;
+      display: block;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Kapcsolat</h1>
+    <h1 data-i18n="header.title">Kapcsolat</h1>
   </header>
   <main>
-    <p>Szeretnél kapcsolatba lépni Kacskóval? Vagy csak beugranál egy chill Discord beszélgetésre, netán megnéznéd a kulisszák mögötti poénkodásokat?
-
-Akkor jó helyen jársz. Csatlakozz a hivatalos Kacsko közösséghez Discordon, ahol megy a sztorizás, mémelés, és néha még Kacsko és xitres is felbukkan egy-egy üdvözléssel vagy közös játékkal:
-
-👉 [Discord szerver meghívó](https://discord.gg/nuh5PYU2S4)
-
-Kérdésed van? Írj ott – vagy csak dobj egy kacsahangot: *quack*.
-
-Köszi, hogy itt vagy! 💛🦆
-</p>
-  
-    <a class="discord-link" href="https://discord.gg/nuh5PYU2S4" target="_blank" rel="noopener noreferrer">Discord szerver megnyitása</a>
+    <p data-i18n="main.text1">
+      Szeretnél kapcsolatba lépni Kacskóval? Vagy csak beugranál egy chill Discord beszélgetésre, netán megnéznéd a kulisszák mögötti poénkodásokat?
+    </p>
+    <p data-i18n="main.text2">
+      Akkor jó helyen jársz. Csatlakozz a hivatalos Kacsko közösséghez Discordon, ahol megy a sztorizás, mémelés, és néha még Kacsko és xitres is felbukkan egy-egy üdvözléssel vagy közös játékkal:
+    </p>
+    <p>
+      👉 
+      <a href="https://discord.gg/nuh5PYU2S4" target="_blank" rel="noopener noreferrer" data-i18n="main.discordInvite">Discord szerver meghívó</a>
+    </p>
+    <p data-i18n="main.text3">
+      Kérdésed van? Írj ott – vagy csak dobj egy kacsahangot: <em>quack</em>.
+    </p>
+    <p data-i18n="main.text4">
+      Köszi, hogy itt vagy! 💛🦆
+    </p>
+    <a class="discord-link" href="https://discord.gg/q73z3zms" target="_blank" rel="noopener noreferrer">Discord szerver megnyitása</a>
   </main>
   <nav>
-    <a href="index.html">Vissza a főoldalra</a>
+     <a href="index.html" data-i18n="nav.home">Vissza a főoldalra</a>
   </nav>
 
-<div class="bottom-bar">
-  <div class="color-layer blue"></div>
-  <div class="color-layer purple"></div>
-  <img src="gengar-removebg-preview.png" alt="Gengar" class="gengar" />
-</div>
+  <div class="bottom-bar">
+    <div class="color-layer blue"></div>
+    <div class="color-layer purple"></div>
+    <img src="gengar-removebg-preview.png" alt="Gengar" class="gengar" />
+  </div>
 
+  <button id="darkModeToggle" aria-label="Sötét mód váltó" title="Sötét mód váltó">💡</button>
+  <button id="langToggle" aria-label="Nyelv váltó" title="Nyelv váltó">
+    <img id="flagImg" src="flags/hu.png" alt="HU" />
+  </button>
+
+  <script>
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const langToggleBtn = document.getElementById('langToggle');
+    const body = document.body;
+    const gengarImg = document.querySelector('.gengar');
+    const flagImg = document.getElementById('flagImg');
+
+    const translations = {
+      hu: {
+        title: "Kapcsolat – Kacsko",
+        "header.title": "Kapcsolat",
+        "main.text1": "Szeretnél kapcsolatba lépni Kacskóval? Vagy csak beugranál egy chill Discord beszélgetésre, netán megnéznéd a kulisszák mögötti poénkodásokat?",
+        "main.text2": "Akkor jó helyen jársz. Csatlakozz a hivatalos Kacsko közösséghez Discordon, ahol megy a sztorizás, mémelés, és néha még Kacsko és xitres is felbukkan egy-egy üdvözléssel vagy közös játékkal:",
+        "main.discordInvite": "Discord szerver meghívó",
+        "main.text3": "Kérdésed van? Írj ott – vagy csak dobj egy kacsahangot: quack.",
+        "main.text4": "Köszi, hogy itt vagy! 💛🦆",
+        "main.discordButton": "Discord szerver megnyitása",
+        "nav.home": "Vissza a főoldalra"
+      },
+      en: {
+        title: "Contact – Kacsko",
+        "header.title": "Contact",
+        "main.text1": "Want to get in touch with Kacsko? Or just drop by for a chill Discord chat, or maybe check out some behind-the-scenes jokes?",
+        "main.text2": "Then you're in the right place. Join the official Kacsko community on Discord, where storytelling, meme sharing, and sometimes even Kacsko and xitres pop in with greetings or games:",
+        "main.discordInvite": "Discord server invite",
+        "main.text3": "Got questions? Write there – or just drop a quack.",
+        "main.text4": "Thanks for being here! 💛🦆",
+        "main.discordButton": "Open Discord server",
+        "nav.home": "Back to homepage"
+      },
+      de: {
+        title: "Kontakt – Kacsko",
+        "header.title": "Kontakt",
+        "main.text1": "Möchtest du mit Kacsko in Kontakt treten? Oder einfach nur für einen chilligen Discord-Chat vorbeischauen, oder vielleicht die Witze hinter den Kulissen sehen?",
+        "main.text2": "Dann bist du hier richtig. Tritt der offiziellen Kacsko-Community auf Discord bei, wo erzählt, gememed wird, und manchmal Kacsko und xitres mit Grüßen oder gemeinsamen Spielen vorbeischauen:",
+        "main.discordInvite": "Discord-Server Einladung",
+        "main.text3": "Fragen? Schreib dort – oder schick einfach ein Quack.",
+        "main.text4": "Danke, dass du hier bist! 💛🦆",
+        "main.discordButton": "Discord-Server öffnen",
+        "nav.home": "Zurück zur Startseite"
+      }
+    };
+
+    const flags = {
+      hu: "flags/hu.png",
+      en: "flags/gb.png",
+      de: "flags/de.png"
+    };
+
+    let currentLang = 'hu';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      // Végigmegyünk az összes data-i18n-es elemen, és cseréljük a szöveget
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+      flagImg.src = flags[lang];
+      flagImg.alt = lang.toUpperCase();
+      document.title = translations[lang].title;
+    }
+
+    function applyDarkModeFromStorage() {
+      const savedTheme = localStorage.getItem('darkMode');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (savedTheme === 'enabled' || (!savedTheme && prefersDark)) {
+        body.classList.add('dark-mode');
+        gengarImg.src = 'gengar-removebg-preview.png';
+      } else {
+        body.classList.remove('dark-mode');
+        gengarImg.src = 'espeon.png';
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const isDark = body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      gengarImg.src = isDark ? 'gengar-removebg-preview.png' : 'espeon.png';
+    });
+
+    langToggleBtn.addEventListener('click', () => {
+      if (currentLang === 'hu') setLanguage('en');
+      else if (currentLang === 'en') setLanguage('de');
+      else setLanguage('hu');
+    });
+
+    applyDarkModeFromStorage();
+    setLanguage(currentLang);
+  </script>
 </body>
 </html>

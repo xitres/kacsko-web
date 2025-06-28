@@ -1,28 +1,32 @@
+/* ---------- ALAP (világos mód) ---------- */
 body {
   margin: 0;
   font-family: 'Rubik', sans-serif;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  color: #fff;
+  background: linear-gradient(135deg, #f7e9f0, #e3d8f9, #f5e7ff);
+  color: #222;
+  transition: background 0.5s, color 0.5s;
 }
 
 header {
   padding: 3rem 2rem;
   text-align: center;
-  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  background: linear-gradient(to right, #ffb3b3, #ff8f66);
   animation: fadeIn 1s ease-in;
+  color: #222;
 }
 
 nav {
-  background-color: #1e1e2f;
+  background-color: #eee;
   display: flex;
   justify-content: center;
   gap: 2rem;
   padding: 1rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  color: #222;
 }
 
 nav a {
-  color: #fff;
+  color: #222;
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s;
@@ -41,22 +45,21 @@ nav a:hover {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* ----------- A lila alsó sáv -------------- */
-
+/* ---------- ALSÓ SÁV ---------- */
 .bottom-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 70px;
-  background-color: #6a0dad; /* lila */
+  background-color: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 -3px 10px rgba(106, 13, 173, 0.7);
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
   z-index: 9999;
 }
 
@@ -66,47 +69,82 @@ nav a:hover {
   animation: pulse 2s infinite;
   user-select: none;
   pointer-events: none;
+  transition: filter 0.3s;
 }
 
 /* Pulzáló animáció */
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
-    filter: drop-shadow(0 0 4px rgba(106,13,173,0.7));
+    filter: drop-shadow(0 0 4px rgba(255, 130, 130, 0.7));
   }
   50% {
     transform: scale(1.2);
-    filter: drop-shadow(0 0 12px rgba(106,13,173,1));
+    filter: drop-shadow(0 0 12px rgba(255, 130, 130, 1));
   }
 }
 
-
-.video-row {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 2rem;
-  flex-wrap: nowrap; /* ha mindenféleképp vízszintesen akarod */
-  overflow-x: auto; /* ha kisebb képernyőn is működjön */
+/* ---------- SÖTÉT MÓD ---------- */
+body.dark-mode {
+  background: linear-gradient(135deg, #1a182f, #2e2a59, #1e1e38);
+  color: #fff;
 }
 
-.video-row video {
-  width: 300px;
+body.dark-mode header {
+  background: linear-gradient(to right, #cc3454, #cc3d20);
+  color: #fff;
+}
+
+body.dark-mode nav {
+  background-color: #2a2a3d;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+body.dark-mode nav a {
+  color: #fff;
+}
+
+body.dark-mode nav a:hover {
+  color: #ff7080;
+}
+
+body.dark-mode .gif-container img {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .bottom-bar {
+  background-color: #3c1a60;
+  box-shadow: 0 -3px 12px rgba(98, 0, 156, 0.6);
+}
+
+body.dark-mode .gengar {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+}
+
+/* ---------- GOMBOK ---------- */
+.dark-mode-btn,
+.lang-toggle {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background: #fff;
+  border: none;
+  padding: 0.6rem 0.9rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 10000;
+  transition: background 0.3s;
+}
+
+.lang-toggle {
+  bottom: 160px;
+  padding: 0.4rem;
+}
+
+.lang-toggle img {
+  width: 24px;
   height: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(255, 65, 108, 0.3);
-  flex-shrink: 0;
 }
 
-nav {
-  text-align: center;
-  margin: 2rem auto 6rem auto; /* felül 2rem, alul 6rem hely a fixed bottom bar miatt */
-}
-
-.meme video {
-  width: 100%;      /* kitölti a szülő doboz szélességét */
-  height: auto;     /* magasság arányosan igazodik, nem nyújtja el */
-  display: block;   /* eltünteti az alján a kis alsó helyet */
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(255, 65, 108, 0.3);
-}

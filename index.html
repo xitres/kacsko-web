@@ -4,33 +4,151 @@
   <meta charset="UTF-8" />
   <title>Kacsko – Főoldal</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js"></script>
+  <style>
+    /* Gomb stílusok */
+    .dark-mode-btn, .lang-toggle {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: #fff;
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 10000;
+      transition: background 0.3s;
+    }
+
+    .lang-toggle {
+      bottom: 140px;
+    }
+
+    .dark-mode-btn:hover, .lang-toggle:hover {
+      background: #ddd;
+    }
+
+    .lang-toggle img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Kacsko YouTube Csatorna</h1>
-    <p>Válassz egy témát az alábbi menüből!</p>
+    <h1 data-i18n="title">Kacsko YouTube Csatorna</h1>
+    <p data-i18n="subtitle">Válassz egy témát az alábbi menüből!</p>
   </header>
 
   <nav>
-    <a href="rolam.html">Rólam</a>
-    <a href="videok.html">Videók</a>
-    <a href="kontakt.html">Kapcsolat</a>
-    <a href="memek.html">memek</a>
+    <a href="rolam.html" data-i18n="nav.about">Rólam</a>
+    <a href="videok.html" data-i18n="nav.videos">Videók</a>
+    <a href="kontakt.html" data-i18n="nav.contact">Kapcsolat</a>
+    <a href="memek.html" data-i18n="nav.memes">Memek</a>
   </nav>
-<div class="gif-container">
-  <img src="duck-animated-walk-8o2meryz72l6b00p.gif" alt="Kacsko animáció" />
-</div>
 
-<div class="bottom-bar">
-  <div class="color-layer blue"></div>
-  <div class="color-layer purple"></div>
-  <img src="gengar-removebg-preview.png" alt="Gengar" class="gengar" />
-</div>
+  <div class="gif-container">
+    <img src="duck-animated-walk-8o2meryz72l6b00p.gif" alt="Kacsko animáció" />
+  </div>
 
+  <div class="bottom-bar">
+    <div class="color-layer blue"></div>
+    <div class="color-layer purple"></div>
+    <img src="espeon.png" alt="Pokemon" class="gengar" />
+  </div>
 
+  <!-- Gombok -->
+  <button id="darkModeToggle" aria-label="Sötét mód váltó" class="dark-mode-btn">💡</button>
+  <button id="langToggle" class="lang-toggle">
+    <img id="flagImg" src="flags/hu.png" alt="HU" />
+  </button>
 
+  <!-- JavaScript -->
+  <script>
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+    const gengarImg = document.querySelector('.gengar');
 
+    const langToggleBtn = document.getElementById('langToggle');
+    const flagImg = document.getElementById('flagImg');
 
+    const translations = {
+      hu: {
+        title: "Kacsko YouTube Csatorna",
+        subtitle: "Válassz egy témát a menüből!",
+        "nav.about": "Rólam",
+        "nav.videos": "Videók",
+        "nav.contact": "Kapcsolat",
+        "nav.memes": "Memek"
+      },
+      en: {
+        title: "Kacsko YouTube Channel",
+        subtitle: "Choose a topic from the menu!",
+        "nav.about": "About me",
+        "nav.videos": "Videos",
+        "nav.contact": "Contact",
+        "nav.memes": "Memes"
+      },
+      de: {
+        title: "Kacsko YouTube Kanal",
+        subtitle: "Wähle ein Thema aus dem Menü!",
+        "nav.about": "Über mich",
+        "nav.videos": "Videos",
+        "nav.contact": "Kontakt",
+        "nav.memes": "Memes"
+      }
+    };
+
+    const flags = {
+      hu: "flags/hu.png",
+      en: "flags/gb.png",
+      de: "flags/de.png"
+    };
+
+    let currentLang = 'hu';
+
+    // Alkalmazzuk a témát tárolt érték vagy rendszer szerint
+    function applyDarkModeFromStorage() {
+      const savedTheme = localStorage.getItem('darkMode');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (savedTheme === 'enabled' || (!savedTheme && prefersDark)) {
+        body.classList.add('dark-mode');
+        gengarImg.src = 'gengar-removebg-preview.png';
+      } else {
+        body.classList.remove('dark-mode');
+        gengarImg.src = 'espeon.png';
+      }
+    }
+
+    applyDarkModeFromStorage();
+
+    toggleBtn.addEventListener('click', () => {
+      const isDark = body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      gengarImg.src = isDark ? 'gengar-removebg-preview.png' : 'espeon.png';
+    });
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+      flagImg.src = flags[lang];
+      flagImg.alt = lang.toUpperCase();
+    }
+
+    langToggleBtn.addEventListener('click', () => {
+      if (currentLang === 'hu') setLanguage('en');
+      else if (currentLang === 'en') setLanguage('de');
+      else setLanguage('hu');
+    });
+
+    setLanguage(currentLang);
+  </script>
 </body>
 </html>
